@@ -1,2 +1,7 @@
-# react-tic-tac-toe
-Simple interactive tic-tac-toe game with React
+# Simple React application for tic-tac-toe game
+
+### Install the dependencies of the app
+`npm install`
+
+### Start the app
+`npm start`
