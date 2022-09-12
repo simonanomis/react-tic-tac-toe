@@ -14,7 +14,8 @@ export class Game extends React.Component {
             //We’ll set the first move to be “X” by default.
             xIsNext: true,
             //which step we’re currently viewing.
-            stepNumber: 0
+            stepNumber: 0,
+            isDescending: true
         }
     }
 
@@ -59,6 +60,12 @@ export class Game extends React.Component {
         })
     }
 
+    sortHistory() {
+        this.setState({
+            isDescending: !this.state.isDescending
+        })
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -97,7 +104,10 @@ export class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    <ol>{this.state.isDescending ? moves : moves.reverse()}</ol>
+                    <button onClick={() => this.sortHistory()}>
+                        Sort by: {this.state.isDescending ? 'Descending' : 'Ascending'}
+                    </button>
                 </div>
             </div>
         );
