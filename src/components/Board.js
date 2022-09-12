@@ -6,15 +6,20 @@ export class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            //We’ll set the first move to be “X” by default.
+            xIsNext: true
         }
     }
 
     handleClick(i) {
         //we call .slice() to create a copy of the squares array to modify instead of modifying the existing array
         const sq = this.state.squares.slice();
-        sq[i] = 'X';
-        this.setState({squares: sq});
+        sq[i] = this.state.xIsNext ? 'X' : 'O';
+        this.setState({
+            squares: sq,
+            xIsNext: !this.state.xIsNext
+        });
     }
 
     renderSquare(i) {
@@ -27,7 +32,7 @@ export class Board extends React.Component {
     }
 
     render() {
-        const status = 'Next player: X';
+        const status = 'Next player: ' + (this.state.xIsNext ? 'X': 'O');
 
         return (
             <div>
