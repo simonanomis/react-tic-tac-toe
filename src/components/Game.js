@@ -1,7 +1,7 @@
 import {Board} from "./Board";
 import * as React from "react";
 import '../index.css';
-import {calculateWinner} from "../calculate-winner";
+import {calculateWinner, lines} from "../calculate-winner";
 
 export class Game extends React.Component {
     constructor(props) {
@@ -89,16 +89,20 @@ export class Game extends React.Component {
         });
 
         let status;
+        let winningSquares;
         if(winner) {
-            status = 'Winner: ' + winner;
+            status = 'Winner: ' + winner[0];
+            winningSquares = lines[winner[1]];
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+            winningSquares = [];
         }
         return (
             <div className="game">
                 <div className="game-board">
                     <Board
                     squares={current.squares}
+                    winningSquares={winningSquares}
                     onClick={i => this.handleClick(i)}
                     />
                 </div>

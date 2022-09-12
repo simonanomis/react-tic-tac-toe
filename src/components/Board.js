@@ -4,10 +4,19 @@ import '../index.css';
 
 export class Board extends React.Component {
     renderSquare(i) {
+        let winning = false;
+        for (let k = 0; k < this.props.winningSquares.length; k++) {
+            if (this.props.winningSquares[k] === i) {
+                winning = true;
+            }
+        }
+        let content = this.props.squares[i];
+
         return (
             <Square
                 key={"square" + i}
-                value={this.props.squares[i]}
+                isWinning={winning}
+                value={content}
                 onClick={() => this.props.onClick(i)}
             />
         );
