@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Square} from "./Square";
 import '../index.css';
+import {calculateWinner} from "../calculate-winner";
 
 export class Board extends React.Component {
     constructor(props) {
@@ -15,6 +16,10 @@ export class Board extends React.Component {
     handleClick(i) {
         //we call .slice() to create a copy of the squares array to modify instead of modifying the existing array
         const sq = this.state.squares.slice();
+        //return early by ignoring a click if someone has won the game or if a Square is already filled
+        if(calculateWinner(sq) || sq[i]) {
+            return;
+        }
         sq[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             squares: sq,
@@ -32,7 +37,14 @@ export class Board extends React.Component {
     }
 
     render() {
-        const status = 'Next player: ' + (this.state.xIsNext ? 'X': 'O');
+        const winner = calculateWinner(this.state.squares);
+        let status;
+
+        if(winner) {
+            status = 'Winner: ' + winner;
+        } else {
+            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+        }
 
         return (
             <div>
