@@ -88,15 +88,27 @@ export class Game extends React.Component {
             )
         });
 
+        let draw = true;
+        for (let k = 0; k < current.squares.length; k++) {
+            if (current.squares[k] === null || winner) {
+                draw = false;
+            }
+        }
+
         let status;
         let winningSquares;
-        if(winner) {
+        if (winner) {
             status = 'Winner: ' + winner[0];
             winningSquares = lines[winner[1]];
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+            if (draw){
+                status = "No more moves: Draw Again!";
+            } else {
+                status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+            }
             winningSquares = [];
         }
+
         return (
             <div className="game">
                 <div className="game-board">

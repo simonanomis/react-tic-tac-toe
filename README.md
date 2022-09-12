@@ -20,3 +20,6 @@ Avoiding direct data mutation lets us keep previous versions of the game’s his
 
 ## Application Preview
 ![img.png](img.png)
+
+## If no more moves:
+![img_1.png](img_1.png)
