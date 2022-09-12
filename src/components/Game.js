@@ -9,6 +9,7 @@ export class Game extends React.Component {
         this.state = {
             history: [{
                 squares: Array(9).fill(null),
+                locations: Array(9)
             }],
             //We’ll set the first move to be “X” by default.
             xIsNext: true,
@@ -18,6 +19,17 @@ export class Game extends React.Component {
     }
 
     handleClick(i) {
+        const locations = [
+            [1, 1],
+            [2, 1],
+            [3, 1],
+            [1, 2],
+            [2, 2],
+            [3, 2],
+            [1, 3],
+            [2, 3],
+            [3, 3]
+        ];
         //This ensures that if we “go back in time” and then make a new move from that point,
         // we throw away all the “future” history that would now be incorrect.
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -32,6 +44,7 @@ export class Game extends React.Component {
         this.setState({
             history: history.concat([{
                 squares: squares,
+                locations: locations[i]
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
@@ -55,7 +68,9 @@ export class Game extends React.Component {
         // and move refers to the current history element index.
         const moves = history.map((step, move) => {
             const description = move ?
-                'Go to move #' + move :
+                'Go to move #' + move + " @ col " +
+                history[move].locations[0] +
+                " and row " + history[move].locations[1] :
                 'Go to game start';
             return (
                 <li key={move}>
